@@ -1,14 +1,5 @@
 #!/usr/bin/env python
 
-## Title:       domainhunter.py
-## Author:      @joevest and @andrewchiles
-## Description: Checks expired domains, reputation/categorization, and Archive.org history to determine 
-##              good candidates for phishing and C2 domain names
-
-# If the expected response format from a provider changes, use the traceback module to get a full stack trace without removing try/catch blocks
-#import traceback
-#traceback.print_exc()
-
 import time 
 import random
 import argparse
