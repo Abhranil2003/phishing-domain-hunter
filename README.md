@@ -4,17 +4,22 @@ DomainHunter is a Python-based tool designed to assist penetration testers and R
 
 ## Key Features
 
-[+]Domain Search: Retrieves recently expired or deleted domains (".com", ".net", ".org") from ExpiredDomains.net.
-    -Requires ExpiredDomains.net credentials for full functionality.
-[+]Reputation Analysis: Performs domain reputation checks using services such as:
-    -Symantec Site Review (BlueCoat)
-    -IBM X-Force
-    -Cisco Talos
-    -McAfee Web Gateway
-[+]Sorting and Filtering: Allows sorting by domain age and filters based on reputation results.
-[+]Output Formats: Generates text-based tables or HTML reports with detailed domain information.
-[+]Optional CAPTCHA Handling: Supports Optical Character Recognition (OCR) for CAPTCHA challenges.
-[+]Flexible Queries: Supports keyword-based searches, single domain analysis, and bulk file inputs.
+- **Domain Search**: Retrieves recently expired or deleted domains (".com", ".net", ".org") from ExpiredDomains.net.
+  - Requires ExpiredDomains.net credentials for full functionality.
+  
+- **Reputation Analysis**: Performs domain reputation checks using services such as:
+  - Symantec Site Review (BlueCoat)
+  - IBM X-Force
+  - Cisco Talos
+  - McAfee Web Gateway
+  
+- **Sorting and Filtering**: Allows sorting by domain age and filters based on reputation results.
+
+- **Output Formats**: Generates text-based tables or HTML reports with detailed domain information.
+
+- **Optional CAPTCHA Handling**: Supports Optical Character Recognition (OCR) for CAPTCHA challenges.
+
+- **Flexible Queries**: Supports keyword-based searches, single domain analysis, and bulk file inputs.
 
 ## Installation
 
