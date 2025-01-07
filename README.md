@@ -1,115 +1,110 @@
 # Phising Domain Hunter
 
-Domain name selection is an important aspect of preparation for penetration tests and especially Red Team engagements. Commonly, domains that were used previously for benign purposes and were properly categorized can be purchased for only a few dollars. Such domains can allow a team to bypass reputation based web filters and network egress restrictions for phishing and C2 related tasks. 
-
-This Python based tool was written to quickly query the Expireddomains.net search engine for expired/available domains with a previous history of use. It then optionally queries for domain reputation against services like Symantec Site Review (BlueCoat), IBM X-Force, and Cisco Talos. The primary tool output is a timestamped HTML table style report.
+Selecting domain names is a crucial part of preparing for penetration tests, particularly during Red Team operations. Often, domains that were previously utilized for harmless purposes and were accurately classified can be acquired for just a few dollars. Such domains enable teams to bypass reputation-based web filters and network egress limitations for phishing and command-and-control (C2) related activities.
+This tool, developed in Python, is designed to swiftly query the Expireddomains.net search engine for expired or available domains that have a prior usage history. It can also optionally check the domain's reputation against services such as Symantec Site Review (BlueCoat), IBM X-Force, and Cisco Talos. The main output of the tool is a timestamped HTML report formatted as a table.
 
 ## Features
 
-- Retrieve specified number of recently expired and deleted domains (.com, .net, .org) from ExpiredDomains.net
-  - Note: You will need credentials from expireddomains.net for full functionality
-- Retrieve available domains based on keyword search from ExpiredDomains.net
-- Perform reputation checks against the Symantec WebPulse Site Review (BlueCoat), IBM x-Force, and Cisco Talos
-- Sort results by domain age (if known) and filter for reputation
-- Text-based table and HTML report output with links to reputation sources and Archive.org entry
+-Fetch a specified number of recently expired and deleted domains (.com, .net, .org) from ExpiredDomains.net.
+-Note: Credentials from expireddomains.net are required for full functionality.
+-Retrieve available domains based on keyword searches from ExpiredDomains.net.
+-Conduct reputation checks against Symantec WebPulse Site Review (BlueCoat), IBM X-Force, and Cisco Talos.
+-Organize results by domain age (if known) and filter based on reputation.
+-Output includes a text-based table and HTML report with links to reputation sources and Archive.org entries.
 
 ## Installation
 
 ### Direct Installation
 
-Install Python requirements
+Install the necessary Python packages:
 
     pip3 install -r requirements.txt
     
-Optional - Install additional OCR support dependencies
+Optional - Install additional dependencies for OCR support:
 
 - Debian/Ubuntu: `apt-get install tesseract-ocr python3-pil`
 
-- MAC OSX: `brew install tesseract`
+- MAC OS: `brew install tesseract`
 
 ### pipenv installation
 
     pipenv --python 3.7
     pipenv install
 
-Optional - Install additional OCR support dependencies
+Optional -  Install additional dependencies for OCR support:
 
 - Debian/Ubuntu: `apt-get install tesseract-ocr python3-pil`
 
 ### Docker
 
-1. Build the image
+1. Build the Docker image:
 `docker build -t domainhunter .`
 
-2. Run it with your arguments
+2. Run it with your specified arguments:
 `docker run -it domainhunter [args]`
 
 ## Usage
+ Usage Syntax:
+    domainhunter.py [-h] [-a] [-k KEYWORD] [-c] [-f FILENAME] [--ocr] [-r MAXRESULTS] [-s SINGLE] [-t {0,1,2,3,4,5}] [-w MAXWIDTH] [-V]
 
-    usage: domainhunter.py [-h] [-a] [-k KEYWORD] [-c] [-f FILENAME] [--ocr]
-                        [-r MAXRESULTS] [-s SINGLE] [-t {0,1,2,3,4,5}]
-                        [-w MAXWIDTH] [-V]
 
-    Finds expired domains, domain categorization, and Archive.org history to determine good candidates for C2 and phishing domains
-
+This tool identifies expired domains, categorizes them, and checks Archive.org history to find suitable candidates for C2 and phishing operations.
     optional arguments:
-    -h, --help            show this help message and exit
-    -a, --alexa           Filter results to Alexa listings
+    -h, --help            Display this help message and exit.
+    -a, --alexa           Filter results to include only Alexa listings.
     -k KEYWORD, --keyword KEYWORD
-                            Keyword used to refine search results
-    -c, --check           Perform domain reputation checks
+                            Keyword used to narrow search results.
+    -c, --check           Conduct domain reputation checks.
     -f FILENAME, --filename FILENAME
-                            Specify input file of line delimited domain names to
-                            check
-    --ocr                 Perform OCR on CAPTCHAs when challenged
+                            Specify an input file containing line-separated domain names to check.
+    --ocr                 Perform OCR on CAPTCHAs when encountered.
     -r MAXRESULTS, --maxresults MAXRESULTS
-                            Number of results to return when querying latest
-                            expired/deleted domains
+                            Number of results to return when querying the latest expired/deleted domains.
     -s SINGLE, --single SINGLE
-                            Performs detailed reputation checks against a single
-                            domain name/IP.
+                            Conduct detailed reputation checks against a single domain name/IP.
     -t {0,1,2,3,4,5}, --timing {0,1,2,3,4,5}
-                            Modifies request timing to avoid CAPTCHAs. Slowest(0)
-                            = 90-120 seconds, Default(3) = 10-20 seconds,
-                            Fastest(5) = no delay
+                            Adjust request timing to avoid CAPTCHAs. Slowest (0) = 90–120 seconds; 
+                            Default (3) = 10–20 seconds; 
+                            Fastest (5) = no delay.
     -w MAXWIDTH, --maxwidth MAXWIDTH
-                            Width of text table
-    -V, --version         show program's version number and exit
+                            Set the width of the text table.
+    -V, --version         Display the program's version number and exit.
 
-    Examples:
+Examples:
+
     ./domainhunter.py -k apples -c --ocr -t5
     ./domainhunter.py --check --ocr -t3
     ./domainhunter.py --single mydomain.com
     ./domainhunter.py --keyword tech --check --ocr --timing 5 --alexa
     ./domaihunter.py --filename inputlist.txt --ocr --timing 5
 
-Use defaults to check for most recent 100 domains and check reputation
+Use defaults to check the most recent 100 domains and verify their reputation:
     
     python3 ./domainhunter.py
 
-Search for 1000 most recently expired/deleted domains, but don't check reputation
+Search for 1000 most recently expired/deleted domains without checking their reputation:
 
     python3 ./domainhunter.py -r 1000
 
-Perform all reputation checks for a single domain
+Conduct all reputation checks for a specific domain:
 
     python3 ./domainhunter.py -s mydomain.com
 
     [*] Downloading malware domain list from http://mirror1.malwaredomains.com/files/justdomains
-
     [*] Fetching domain reputation for: mydomain.com
     [*] BlueCoat: mydomain.com
     [+] mydomain.com: Technology/Internet
     [*] IBM xForce: mydomain.com
-    [+] mydomain.com: Communication Services, Software as a Service, Cloud, (Score: 1)
+    [+] mydomain.com: Communication Services, Software as a Service, Cloud (Score: 1)
     [*] Cisco Talos: mydomain.com
     [+] mydomain.com: Web Hosting (Score: Neutral)
 
-Perform all reputation checks for a list of domains at max speed with OCR of CAPTCHAs
+
+Execute all reputation checks for a list of domains at maximum speed with OCR on CAPTCHAs:
 
     python3 ./domainhunter.py -f <domainslist.txt> -t 5 --ocr
 
-Search for available domains with keyword term of "dog", max results of 25, and check reputation
+Search for available domains with the keyword "dog", limiting results to 25 while checking their reputation:
     
     python3 ./domainhunter.py -k dog -r 25 -c
 
@@ -120,19 +115,19 @@ Search for available domains with keyword term of "dog", max results of 25, and 
     |____/ \___/|_|  |_/_/   \_\___|_| \_|  |_| |_|\___/|_| \_| |_| |_____|_| \_\
 
     Expired Domains Reputation Checker
-    Authors: @joevest and @andrewchiles
-
-    DISCLAIMER: This is for educational purposes only!
-    It is designed to promote education and the improvement of computer/cyber security.
-    The authors or employers are not liable for any illegal act or misuse performed by any user of this tool.
-    If you plan to use this content for illegal purpose, don't.  Have a nice day :)
+    
+    DISCLAIMER: This tool is intended solely for educational purposes!
+    It aims to foster learning and enhance computer/cybersecurity practices.
+    
+    The authors or their employers bear no responsibility for any unlawful actions or misuse by users of this tool. 
+    If you intend to use this content for illegal activities, please refrain from doing so.
+    Have a great day! :)
 
     [*] Downloading malware domain list from http://mirror1.malwaredomains.com/files/justdomains
 
-    [*] Fetching expired or deleted domains containing "dog"
-    [*]  https://www.expireddomains.net/domain-name-search/?q=dog
-
-    [*] Performing domain reputation checks for 8 domains.
+    [*] Retrieving expired or deleted domains containing "dog"
+    [*] https://www.expireddomains.net/domain-name-search/?q=dog
+    [*] Executing domain reputation checks for 8 domains.
     [*] BlueCoat: doginmysuitcase.com
     [+] doginmysuitcase.com: Travel
     [*] IBM xForce: doginmysuitcase.com
