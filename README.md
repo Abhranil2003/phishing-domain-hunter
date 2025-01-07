@@ -119,7 +119,7 @@ Search for available domains with the keyword "dog", limiting results to 25 whil
     DISCLAIMER: This tool is intended solely for educational purposes!
     It aims to foster learning and enhance computer/cybersecurity practices.
     
-    The authors or their employers bear no responsibility for any unlawful actions or misuse by users of this tool. 
+    The author or his employer bear no responsibility for any unlawful actions or misuse by users of this tool. 
     If you intend to use this content for illegal activities, please refrain from doing so.
     Have a great day! :)
 
