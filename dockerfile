@@ -1,23 +1,18 @@
-# Use the official Python image as a base
-FROM python:3.9-slim
+#build it:
+#docker build -t domainhunter:1.0 .
+#run it:
+#docker run -it domainhunter:1.0 [args]
 
-# Update package list and install necessary packages
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    tesseract-ocr \
-    python3-pil && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+FROM python:3
 
-# Set the working directory
-WORKDIR /app
+RUN apt-get update \
+	&& apt-get install python3-pip -y\
+	&& apt-get install tesseract-ocr -y\
+	&& apt-get install python3-pil -y
 
-# Copy the Python script and requirements file into the container
-COPY domainhunter.py .
-COPY requirements.txt .
+ADD domainhunter.py /
+ADD requirements.txt /
 
-# Install the required Python packages
-RUN pip install --no-cache-dir -r requirements.txt 
+RUN pip3 install -r requirements.txt 
 
-# Define the command to run the application
-ENTRYPOINT ["python3", "domainhunter.py"]
+ENTRYPOINT [ "python3", "./domainhunter.py" ]
