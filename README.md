@@ -1,6 +1,6 @@
 # Phising DomainHunter
 
-DomainHunter is a Python-based tool designed to assist penetration testers and Red Team operators in identifying expired or available domains suitable for phishing or Command-and-Control (C2) infrastructure. The tool integrates multiple domain reputation services to assess the credibility of domains and provides actionable outputs.
+PhishingDomainHunter is a Python-based tool designed to assist penetration testers and Red Team operators in identifying expired or available domains suitable for phishing or Command-and-Control (C2) infrastructure. The tool integrates multiple domain reputation services to assess the credibility of domains and provides actionable outputs.
 
 ## Key Features
 
